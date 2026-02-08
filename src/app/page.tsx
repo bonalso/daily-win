@@ -97,17 +97,6 @@ export default function HomePage() {
     });
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="text-3xl mb-3 animate-pulse">✨</div>
-          <p className="text-sm text-stone-400">Laden...</p>
-        </div>
-      </div>
-    );
-  }
-
   const alreadyCheckedIn = entry ? isCheckedIn(entry) : false;
 
   return (

@@ -57,14 +57,6 @@ export default function BestOfPage() {
     })();
   }, []);
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-3xl animate-pulse">⭐</div>
-      </div>
-    );
-  }
-
   return (
     <div className="pb-24 px-4 pt-6 max-w-lg mx-auto">
       <h1 className="text-lg font-bold text-stone-800 text-center mb-2">Best of</h1>
