@@ -42,8 +42,20 @@ body {
 }
 
 @keyframes fade-in {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 .animate-slide-up {
@@ -88,14 +100,20 @@ body {
 }
 
 /* Prevent overscroll bounce on iOS */
-html, body {
+html,
+body {
   overscroll-behavior: none;
 }
-/* ---- Daily Win: skeleton shimmer ---- */
+
+/* ============================================================
+   Daily Win — Premium UI helpers
+   ============================================================ */
+
+/* ---- Skeleton shimmer ---- */
 .skeleton {
   position: relative;
   overflow: hidden;
-  background: rgb(250 250 249); /* stone-100 */
+  background: rgb(250 250 249); /* stone-50 (warm + clean) */
 }
 
 .skeleton::after {
@@ -112,8 +130,34 @@ html, body {
   animation: shimmer 1.25s infinite;
 }
 
-@keyframes shimmer {
-  100% {
-    transform: translateX(100%);
+/* ---- Bottom nav tap bounce ---- */
+.tap-bounce {
+  transform: translateZ(0);
+  transition: transform 140ms ease;
+}
+
+.tap-bounce:active {
+  transform: scale(0.94);
+}
+
+@media (hover: hover) {
+  .tap-bounce:hover {
+    transform: scale(1.03);
+  }
+}
+
+/* ---- Card press / premium feel ---- */
+.card-press {
+  transform: translateZ(0);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.card-press:active {
+  transform: scale(0.985);
+}
+
+@media (hover: hover) {
+  .card-press:hover {
+    transform: translateY(-1px);
   }
 }

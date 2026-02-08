@@ -70,7 +70,7 @@ export default function BestOfPage() {
           <button
             key={t}
             onClick={() => setTab(t)}
-            className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all ${
+            className={`tap-bounce flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all ${
               tab === t
                 ? 'bg-white text-stone-800 shadow-sm'
                 : 'text-stone-500 hover:text-stone-700'
@@ -142,7 +142,7 @@ export default function BestOfPage() {
 
 function ItemCard({ text, type, date }: { text: string; type: 'highlight' | 'win'; date: string }) {
   return (
-    <div className="bg-white rounded-2xl border border-stone-100 shadow-soft px-4 py-3">
+    <div className="card-press bg-white rounded-2xl border border-stone-100 shadow-soft px-4 py-3">
       <div className="flex items-start gap-3">
         <span className="text-base mt-0.5">
           {type === 'highlight' ? '✨' : '🏆'}
