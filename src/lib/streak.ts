@@ -3,22 +3,28 @@
 // Core differentiator: forgiving, supportive, never punishing.
 // ============================================================
 
-import { StreakState, DayEntry, isCheckedIn, DateString } from './types';
+import { StreakState, DayEntry, isCheckedIn } from './types';
 import { todayString, yesterdayString, dayBeforeYesterdayString } from './utils';
-import { getEntry, getStreak, saveStreak } from './db';
+import { getEntry, saveStreak } from './db';
+
+// ✅ Re-export, damit page.tsx `getStreak` aus '@/lib/streak' importieren kann
+export { getStreak } from './db';
 
 /**
  * Recalculate and persist the streak after any interaction.
- * 
+ *
  * Rules:
  * - A day counts if isCheckedIn(entry) is true.
  * - Streak increments if today is checked in AND yesterday was checked in.
  * - Grace day (optional): if yesterday was missed but day-before-yesterday
- *   was checked in, streak is preserved (not incremented).
- * - Streak never resets to 0 visually — minimum display is 0, 
- *   but we never show shaming language.
+ *   was checked in, streak is preserved (supportive).
+ * - Streak never uses shaming language.
  */
-export async function recalculateStreak(graceDayEnabled: boolean = true): Promise<StreakState> {
+export async function recalculateStreak(
+  graceDayEnabled: boolean = true
+): Promise<StreakState> {
+  const { getStreak } = await import('./db');
+
   const streak = await getStreak();
   const today = todayString();
   const yesterday = yesterdayString();
@@ -34,7 +40,6 @@ export async function recalculateStreak(graceDayEnabled: boolean = true): Promis
 
   if (!todayChecked) {
     // User hasn't checked in today yet — don't change streak
-    // (but also don't break it — they still have time)
     return streak;
   }
 
@@ -52,7 +57,8 @@ export async function recalculateStreak(graceDayEnabled: boolean = true): Promis
   } else if (
     graceDayEnabled &&
     streak.lastCheckInDate === dayBeforeYesterday &&
-    !yesterdayChecked
+    !yesterdayChecked &&
+    dayBeforeChecked
   ) {
     // Grace day: missed yesterday, but day-before was last check-in.
     // Preserve streak (don't increment, don't break).
@@ -68,7 +74,7 @@ export async function recalculateStreak(graceDayEnabled: boolean = true): Promis
   const newStreak: StreakState = {
     currentStreak: newCurrentStreak,
     bestStreak: Math.max(streak.bestStreak, newCurrentStreak),
-    lastCheckInDate: today,
+    lastCheckInDate: today
   };
 
   await saveStreak(newStreak);
@@ -83,11 +89,9 @@ export async function recordInteraction(
   entry: DayEntry,
   graceDayEnabled: boolean = true
 ): Promise<{ entry: DayEntry; streak: StreakState }> {
-  // Ensure didInteract is true
   entry.didInteract = true;
   entry.updatedAt = Date.now();
 
-  // Import saveEntry here to avoid circular deps at module level
   const { saveEntry } = await import('./db');
   await saveEntry(entry);
 
@@ -100,23 +104,11 @@ export async function recordInteraction(
  */
 export function getStreakMessage(streak: StreakState): string {
   const { currentStreak } = streak;
-  if (currentStreak === 0) {
-    return 'Starte deine Serie — du schaffst das!';
-  }
-  if (currentStreak === 1) {
-    return 'Tag 1 — ein schöner Anfang ✨';
-  }
-  if (currentStreak <= 3) {
-    return `${currentStreak} Tage am Stück — weiter so! 💪`;
-  }
-  if (currentStreak <= 7) {
-    return `${currentStreak} Tage — du baust dir eine tolle Gewohnheit auf 🌱`;
-  }
-  if (currentStreak <= 14) {
-    return `${currentStreak} Tage — beeindruckend! Du bleibst dran 🔥`;
-  }
-  if (currentStreak <= 30) {
-    return `${currentStreak} Tage — was für eine Serie! 🌟`;
-  }
+  if (currentStreak === 0) return 'Starte deine Serie — du schaffst das!';
+  if (currentStreak === 1) return 'Tag 1 — ein schöner Anfang ✨';
+  if (currentStreak <= 3) return `${currentStreak} Tage am Stück — weiter so! 💪`;
+  if (currentStreak <= 7) return `${currentStreak} Tage — du baust dir eine tolle Gewohnheit auf 🌱`;
+  if (currentStreak <= 14) return `${currentStreak} Tage — beeindruckend! Du bleibst dran 🔥`;
+  if (currentStreak <= 30) return `${currentStreak} Tage — was für eine Serie! 🌟`;
   return `${currentStreak} Tage — unglaublich! Du inspirierst 💛`;
 }
