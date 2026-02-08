@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { Star, Sparkles, Trophy } from 'lucide-react';
 import { DayEntry, FavoriteItem } from '@/lib/types';
 import { getAllEntries } from '@/lib/db';
 import { friendlyDateLabel, formatDate } from '@/lib/utils';
@@ -76,7 +77,19 @@ export default function BestOfPage() {
                 : 'text-stone-500 hover:text-stone-700'
             }`}
           >
-            {t === 'favorites' ? '⭐ Favoriten' : t === 'highlights' ? '✨ Highlights' : '🏆 Wins'}
+            {t === 'favorites' ? (
+              <span className="inline-flex items-center gap-1">
+                <Star size={14} /> Favoriten
+              </span>
+            ) : t === 'highlights' ? (
+              <span className="inline-flex items-center gap-1">
+                <Sparkles size={14} /> Highlights
+              </span>
+            ) : (
+              <span className="inline-flex items-center gap-1">
+                <Trophy size={14} /> Wins
+              </span>
+            )}
           </button>
         ))}
       </div>
@@ -86,7 +99,7 @@ export default function BestOfPage() {
         <div className="space-y-3">
           {favorites.length === 0 ? (
             <EmptyState
-              emoji="⭐"
+              icon={<Star size={40} />}
               title="Noch keine Favoriten"
               text="Markiere Highlights oder Wins im Kalender als Favoriten."
             />
@@ -108,7 +121,7 @@ export default function BestOfPage() {
           <p className="text-xs text-stone-400 mb-2">Letzte 30 Tage</p>
           {recentHighlights.length === 0 ? (
             <EmptyState
-              emoji="✨"
+              icon={<Sparkles size={40} />}
               title="Noch keine Highlights"
               text="Deine Highlights erscheinen hier nach dem Abend-Check-out."
             />
@@ -125,7 +138,7 @@ export default function BestOfPage() {
           <p className="text-xs text-stone-400 mb-2">Letzte 30 Tage</p>
           {recentWins.length === 0 ? (
             <EmptyState
-              emoji="🏆"
+              icon={<Trophy size={40} />}
               title="Noch keine Wins"
               text="Deine Daily Wins erscheinen hier nach dem Abend-Check-out."
             />
@@ -142,11 +155,11 @@ export default function BestOfPage() {
 
 function ItemCard({ text, type, date }: { text: string; type: 'highlight' | 'win'; date: string }) {
   return (
-    <div className="card-press bg-white rounded-2xl border border-stone-100 shadow-soft px-4 py-3">
+    <div className="card-press bg-white rounded-2xl shadow-soft px-4 py-3">
       <div className="flex items-start gap-3">
-        <span className="text-base mt-0.5">
-          {type === 'highlight' ? '✨' : '🏆'}
-        </span>
+        <div className="mt-0.5">
+          {type === 'highlight' ? <Sparkles size={20} className="text-stone-400" /> : <Trophy size={20} className="text-stone-400" />}
+        </div>
         <div className="flex-1 min-w-0">
           <p className="text-sm text-stone-700">{text}</p>
           <p className="text-xs text-stone-400 mt-1">{friendlyDateLabel(date)}</p>
@@ -156,10 +169,12 @@ function ItemCard({ text, type, date }: { text: string; type: 'highlight' | 'win
   );
 }
 
-function EmptyState({ emoji, title, text }: { emoji: string; title: string; text: string }) {
+function EmptyState({ icon, title, text }: { icon: React.ReactNode; title: string; text: string }) {
   return (
     <div className="text-center py-12">
-      <div className="text-4xl mb-3">{emoji}</div>
+      <div className="flex justify-center mb-3 text-stone-300">
+        {icon}
+      </div>
       <h3 className="text-sm font-semibold text-stone-600 mb-1">{title}</h3>
       <p className="text-xs text-stone-400">{text}</p>
     </div>

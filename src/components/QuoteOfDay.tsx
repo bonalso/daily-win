@@ -1,5 +1,7 @@
 'use client';
 
+import { Sparkle } from 'lucide-react';
+
 interface Props {
   quote?: string; // optional, damit es nie crasht
 }
@@ -14,12 +16,12 @@ export default function QuoteOfDay({ quote }: Props) {
       : fallbackQuote;
 
   return (
-    <div className="px-5 py-4 rounded-2xl bg-white border border-stone-100 shadow-soft">
+    <div className="px-5 py-4 rounded-2xl bg-white shadow-soft">
       <div className="flex items-start gap-3">
-        <span className="text-lg leading-none mt-0.5 text-honey-400">✦</span>
+        <Sparkle size={16} className="text-honey-400 flex-shrink-0 mt-0.5" />
 
         <p className="text-sm text-stone-600 italic leading-relaxed flex-1">
-          „{safeQuote}“
+          „{safeQuote}"
         </p>
       </div>
     </div>

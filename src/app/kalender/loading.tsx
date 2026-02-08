@@ -24,7 +24,7 @@ export default function Loading() {
         </div>
 
         {/* Calendar grid */}
-        <div className="rounded-2xl bg-white border border-stone-100 shadow-soft p-4">
+        <div className="rounded-2xl bg-white shadow-soft p-4">
           <div className="grid grid-cols-7 gap-2">
             {Array.from({ length: 42 }).map((_, i) => (
               <div
@@ -37,11 +37,11 @@ export default function Loading() {
 
         {/* Below-calendar: summary cards */}
         <div className="grid grid-cols-2 gap-3">
-          <div className="rounded-2xl bg-white border border-stone-100 shadow-soft p-4 space-y-2">
+          <div className="rounded-2xl bg-white shadow-soft p-4 space-y-2">
             <div className="h-4 w-24 rounded bg-stone-100 animate-pulse" />
             <div className="h-6 w-16 rounded bg-stone-100 animate-pulse" />
           </div>
-          <div className="rounded-2xl bg-white border border-stone-100 shadow-soft p-4 space-y-2">
+          <div className="rounded-2xl bg-white shadow-soft p-4 space-y-2">
             <div className="h-4 w-28 rounded bg-stone-100 animate-pulse" />
             <div className="h-6 w-20 rounded bg-stone-100 animate-pulse" />
           </div>

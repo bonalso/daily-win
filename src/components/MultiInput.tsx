@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { X, Plus } from 'lucide-react';
 
 interface Props {
   values: string[];
@@ -57,7 +58,7 @@ export default function MultiInput({
               onClick={() => removeItem(i)}
               className="w-8 h-8 flex items-center justify-center rounded-lg text-stone-400 hover:text-stone-600 hover:bg-stone-100 transition-all"
             >
-              ✕
+              <X size={16} strokeWidth={2} />
             </button>
           )}
         </div>
@@ -68,7 +69,7 @@ export default function MultiInput({
           onClick={addItem}
           className="text-sm text-honey-600 hover:text-honey-700 font-medium flex items-center gap-1 px-1 py-1 transition-all"
         >
-          <span className="text-base leading-none">+</span> Hinzufügen
+          <Plus size={16} strokeWidth={2} /> Hinzufügen
         </button>
       )}
     </div>

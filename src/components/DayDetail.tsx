@@ -1,5 +1,6 @@
 'use client';
 
+import { X, CircleCheck, Star } from 'lucide-react';
 import { DayEntry, FavoriteItem } from '@/lib/types';
 import { friendlyDateLabel } from '@/lib/utils';
 
@@ -32,14 +33,14 @@ export default function DayDetail({ entry, onToggleFavorite, onClose }: Props) {
             onClick={onClose}
             className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-stone-100 text-stone-500 transition-all"
           >
-            ✕
+            <X size={18} />
           </button>
         </div>
 
         <div className="px-5 py-4 space-y-5">
           {entry.quickCheckInPressed && (
             <div className="flex items-center gap-2 text-sage-600 bg-sage-50 px-4 py-2 rounded-xl">
-              <span>✅</span>
+              <CircleCheck size={18} className="text-sage-600" />
               <span className="text-sm font-medium">Kurzer Check-in</span>
             </div>
           )}
@@ -195,7 +196,7 @@ function FavoritableItem({
         }`}
         title={favorited ? 'Favorit entfernen' : 'Als Favorit markieren'}
       >
-        {favorited ? '★' : '☆'}
+        <Star size={16} className={favorited ? 'fill-current' : ''} />
       </button>
     </div>
   );

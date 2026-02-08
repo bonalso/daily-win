@@ -1,5 +1,6 @@
 'use client';
 
+import { Check } from 'lucide-react';
 import { DayEntry, isCheckedIn } from '@/lib/types';
 import { lastNDays } from '@/lib/utils';
 
@@ -36,7 +37,7 @@ export default function WeekDots({ entries }: Props) {
                     : 'bg-stone-100 text-stone-400'
                 }`}
               >
-                {checked ? '✓' : ''}
+                {checked ? <Check size={14} strokeWidth={2.5} /> : ''}
               </div>
             </div>
           );

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { Settings } from 'lucide-react';
 import { AppSettings } from '@/lib/types';
 import { getSettings, saveSettings, getContentState } from '@/lib/db';
 import { exportJSON, exportMarkdown } from '@/lib/export';
@@ -50,7 +51,7 @@ export default function SettingsPage() {
   if (!settings) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="text-3xl animate-pulse">⚙️</div>
+        <Settings size={32} className="text-stone-300 animate-pulse" />
       </div>
     );
   }
@@ -176,7 +177,7 @@ export default function SettingsPage() {
 
 function SettingCard({ children }: { children: React.ReactNode }) {
   return (
-    <div className="bg-white rounded-2xl border border-stone-100 shadow-soft px-4 py-4">
+    <div className="bg-white rounded-2xl shadow-soft px-4 py-4">
       {children}
     </div>
   );

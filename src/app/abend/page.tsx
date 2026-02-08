@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { Moon, ChevronLeft, Sparkles, Trophy, Lightbulb, Heart, Leaf } from 'lucide-react';
 import { EveningEntry, DayEntry } from '@/lib/types';
 import { todayString } from '@/lib/utils';
 import { getOrCreateEntry, getSettings } from '@/lib/db';
@@ -91,7 +92,7 @@ export default function EveningPage() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="text-3xl animate-pulse">🌙</div>
+        <Moon size={32} className="text-stone-300 animate-pulse" />
       </div>
     );
   }
@@ -100,7 +101,7 @@ export default function EveningPage() {
     return (
       <div className="min-h-screen flex items-center justify-center px-4">
         <div className="text-center space-y-3 animate-fade-in">
-          <div className="text-5xl">🌙</div>
+          <Moon size={48} className="text-stone-300 mx-auto" />
           <h2 className="text-xl font-semibold text-stone-800">Gespeichert!</h2>
           <p className="text-sm text-stone-500">
             Du warst heute für dich da 💛
@@ -116,9 +117,10 @@ export default function EveningPage() {
       <div className="flex items-center justify-between mb-6">
         <button
           onClick={() => router.back()}
-          className="text-stone-500 hover:text-stone-700 text-sm font-medium transition-all"
+          className="flex items-center gap-1 text-stone-500 hover:text-stone-700 text-sm font-medium transition-all"
         >
-          ← Zurück
+          <ChevronLeft size={18} />
+          Zurück
         </button>
         <h1 className="text-lg font-bold text-stone-800">Abend-Check-out</h1>
         <div className="w-16"></div>
@@ -130,7 +132,7 @@ export default function EveningPage() {
 
       <div className="space-y-6">
         {/* Highlights */}
-        <FormSection title="Highlights des Tages" emoji="✨">
+        <FormSection title="Highlights des Tages" icon={<Sparkles size={18} className="text-stone-400" />}>
           <MultiInput
             values={highlights}
             onChange={setHighlights}
@@ -140,7 +142,7 @@ export default function EveningPage() {
         </FormSection>
 
         {/* Wins */}
-        <FormSection title="Daily Win / Fortschritt" emoji="🏆">
+        <FormSection title="Daily Win / Fortschritt" icon={<Trophy size={18} className="text-stone-400" />}>
           <MultiInput
             values={wins}
             onChange={setWins}
@@ -150,7 +152,7 @@ export default function EveningPage() {
         </FormSection>
 
         {/* Learned */}
-        <FormSection title="Was habe ich gelernt?" emoji="💡">
+        <FormSection title="Was habe ich gelernt?" icon={<Lightbulb size={18} className="text-stone-400" />}>
           <input
             type="text"
             value={learned}
@@ -161,7 +163,7 @@ export default function EveningPage() {
         </FormSection>
 
         {/* Gratitude */}
-        <FormSection title="Wofür bin ich heute dankbar?" emoji="🙏">
+        <FormSection title="Wofür bin ich heute dankbar?" icon={<Heart size={18} className="text-stone-400" />}>
           <MultiInput
             values={gratitude}
             onChange={setGratitude}
@@ -178,7 +180,7 @@ export default function EveningPage() {
         </FormSection>
 
         {/* Let Go */}
-        <FormSection title="Was lasse ich heute los?" emoji="🍃" optional>
+        <FormSection title="Was lasse ich heute los?" icon={<Leaf size={18} className="text-stone-400" />} optional>
           <input
             type="text"
             value={letGo}
@@ -196,7 +198,7 @@ export default function EveningPage() {
           disabled={saving}
           className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-stone-800 to-stone-700 text-white font-semibold shadow-soft hover:shadow-lg hover:scale-[1.01] active:scale-[0.99] transition-all duration-200 disabled:opacity-50"
         >
-          {saving ? 'Speichern...' : 'Check-out abschließen 🌙'}
+          {saving ? 'Speichern...' : <span className="inline-flex items-center gap-2">Check-out abschließen <Moon size={18} /></span>}
         </button>
         <p className="text-xs text-stone-400 text-center">
           Auch ein leeres Formular zählt — du warst da.
@@ -208,19 +210,19 @@ export default function EveningPage() {
 
 function FormSection({
   title,
-  emoji,
+  icon,
   optional,
   children,
 }: {
   title: string;
-  emoji: string;
+  icon: React.ReactNode;
   optional?: boolean;
   children: React.ReactNode;
 }) {
   return (
-    <div className="bg-white rounded-2xl border border-stone-100 shadow-soft px-4 py-4">
+    <div className="bg-white rounded-2xl shadow-soft px-4 py-4">
       <div className="flex items-center gap-2 mb-3">
-        <span className="text-base">{emoji}</span>
+        {icon}
         <h3 className="text-sm font-semibold text-stone-700">{title}</h3>
         {optional && (
           <span className="text-xs text-stone-400 ml-auto">Optional</span>

@@ -18,7 +18,7 @@ export default function Loading() {
         </div>
 
         {/* Quote of the day skeleton */}
-        <div className="px-5 py-4 rounded-2xl bg-white border border-stone-100 shadow-soft">
+        <div className="px-5 py-4 rounded-2xl bg-white shadow-soft">
           <div className="flex items-start gap-3">
             <div className="h-6 w-6 rounded-full bg-stone-100 animate-pulse" />
             <div className="flex-1 space-y-2">
@@ -29,7 +29,7 @@ export default function Loading() {
         </div>
 
         {/* Streak / stats card skeleton */}
-        <div className="rounded-2xl bg-white border border-stone-100 shadow-soft p-5">
+        <div className="rounded-2xl bg-white shadow-soft p-5">
           <div className="flex items-center justify-between gap-3">
             <div className="space-y-2 flex-1">
               <div className="h-4 w-32 rounded bg-stone-100 animate-pulse" />
@@ -40,7 +40,7 @@ export default function Loading() {
         </div>
 
         {/* Quick check-in skeleton */}
-        <div className="rounded-2xl bg-white border border-stone-100 shadow-soft p-5 space-y-3">
+        <div className="rounded-2xl bg-white shadow-soft p-5 space-y-3">
           <div className="h-4 w-40 rounded bg-stone-100 animate-pulse" />
           <div className="grid grid-cols-2 gap-3">
             <div className="h-11 rounded-2xl bg-stone-100 animate-pulse" />

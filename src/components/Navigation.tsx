@@ -2,12 +2,14 @@
 
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
+import { Home, Calendar, Star, Settings } from 'lucide-react';
+import { type LucideIcon } from 'lucide-react';
 
-const NAV_ITEMS = [
-  { href: '/', label: 'Home', icon: '🏠' },
-  { href: '/kalender', label: 'Kalender', icon: '📅' },
-  { href: '/bestof', label: 'Best of', icon: '⭐' },
-  { href: '/einstellungen', label: 'Mehr', icon: '⚙️' },
+const NAV_ITEMS: { href: string; label: string; icon: LucideIcon }[] = [
+  { href: '/', label: 'Home', icon: Home },
+  { href: '/kalender', label: 'Kalender', icon: Calendar },
+  { href: '/bestof', label: 'Best of', icon: Star },
+  { href: '/einstellungen', label: 'Mehr', icon: Settings },
 ];
 
 export default function Navigation() {
@@ -21,6 +23,7 @@ export default function Navigation() {
             item.href === '/'
               ? pathname === '/'
               : pathname.startsWith(item.href);
+          const Icon = item.icon;
           return (
             <Link
               key={item.href}
@@ -31,7 +34,7 @@ export default function Navigation() {
                   : 'text-stone-400 hover:text-stone-600 hover:bg-stone-50'
               }`}
             >
-              <span className="text-xl leading-none">{item.icon}</span>
+              <Icon size={22} strokeWidth={isActive ? 2 : 1.5} />
               <span className="text-[10px] font-medium leading-none">
                 {item.label}
               </span>

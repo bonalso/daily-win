@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import { Moon, Sun } from 'lucide-react';
 import { DayEntry, isCheckedIn } from '@/lib/types';
 import { todayString, lastNDays } from '@/lib/utils';
 import { getOrCreateEntry, saveEntry, getEntry, getSettings } from '@/lib/db';
@@ -119,7 +120,7 @@ export default function HomePage() {
       <StreakBadge streak={streak} />
 
       {/* Week Overview */}
-      <div className="bg-white rounded-2xl border border-stone-100 shadow-soft px-4 py-3">
+      <div className="bg-white rounded-2xl shadow-soft px-4 py-3">
         <WeekDots entries={weekEntries} />
       </div>
 
@@ -128,7 +129,9 @@ export default function HomePage() {
         href="/abend"
         className="block w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-stone-800 to-stone-700 text-white text-center font-semibold shadow-soft hover:shadow-lg hover:scale-[1.01] active:scale-[0.99] transition-all duration-200"
       >
-        Abend-Check-out starten 🌙
+        <span className="inline-flex items-center justify-center gap-2">
+          Abend-Check-out starten <Moon size={18} />
+        </span>
       </Link>
 
       {/* Optional Morning Check-in */}
@@ -137,7 +140,9 @@ export default function HomePage() {
           href="/morgen"
           className="block w-full py-3 px-6 rounded-2xl bg-warm-50 border border-warm-200 text-warm-600 text-center font-medium hover:bg-warm-100 transition-all duration-200"
         >
-          Morgen-Check-in ☀️
+          <span className="inline-flex items-center justify-center gap-2">
+            Morgen-Check-in <Sun size={18} />
+          </span>
         </Link>
       )}
 
@@ -155,7 +160,7 @@ export default function HomePage() {
       />
 
       {/* Fallback Chips */}
-      <div className="bg-white rounded-2xl border border-stone-100 shadow-soft px-4 py-4">
+      <div className="bg-white rounded-2xl shadow-soft px-4 py-4">
         <FallbackChips
           selectedChips={entry?.fallbackChipsSelected ?? []}
           onToggle={handleChipToggle}

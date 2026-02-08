@@ -1,5 +1,6 @@
 'use client';
 
+import { Sun, Moon } from 'lucide-react';
 import { isMorning } from '@/lib/utils';
 import { DEFAULT_MORNING_MESSAGES } from '@/lib/morning-messages';
 
@@ -32,9 +33,11 @@ export default function MorningBanner({ message }: Props) {
       }`}
     >
       <div className="flex items-start gap-3">
-        <span className={`text-2xl ${morning ? 'animate-pulse' : ''}`}>
-          {morning ? '☀️' : '🌙'}
-        </span>
+        {morning ? (
+          <Sun size={24} className="text-honey-500 flex-shrink-0" />
+        ) : (
+          <Moon size={24} className="text-stone-400 flex-shrink-0" />
+        )}
 
         <div className="flex-1 min-w-0">
           <p

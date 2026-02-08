@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
 import { DayEntry, FavoriteItem, isCheckedIn } from '@/lib/types';
 import { datesInMonth, formatDate, todayString, parseDate } from '@/lib/utils';
 import { getEntriesInRange, getEntry, saveEntry } from '@/lib/db';
@@ -108,7 +109,7 @@ export default function CalendarPage() {
           onClick={goToPrevMonth}
           className="w-10 h-10 flex items-center justify-center rounded-xl text-stone-500 hover:bg-stone-100 transition-all"
         >
-          ←
+          <ChevronLeft size={20} />
         </button>
         <h2 className="text-base font-semibold text-stone-700">
           {MONTH_NAMES[month]} {year}
@@ -117,7 +118,7 @@ export default function CalendarPage() {
           onClick={goToNextMonth}
           className="w-10 h-10 flex items-center justify-center rounded-xl text-stone-500 hover:bg-stone-100 transition-all"
         >
-          →
+          <ChevronRight size={20} />
         </button>
       </div>
 
@@ -162,7 +163,7 @@ export default function CalendarPage() {
                 <span className="absolute bottom-0.5 w-1 h-1 rounded-full bg-honey-500" />
               )}
               {hasFavorites && (
-                <span className="absolute top-0.5 right-1 text-[8px]">⭐</span>
+                <Star size={8} className="absolute top-0.5 right-1 fill-honey-400 text-honey-400" />
               )}
             </button>
           );
@@ -176,13 +177,13 @@ export default function CalendarPage() {
           <span className="text-xs text-stone-500">Check-in</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <span className="text-xs">⭐</span>
+          <Star size={12} className="fill-honey-400 text-honey-400" />
           <span className="text-xs text-stone-500">Favoriten</span>
         </div>
       </div>
 
       {/* Stats */}
-      <div className="mt-6 bg-white rounded-2xl border border-stone-100 shadow-soft px-4 py-3">
+      <div className="mt-6 bg-white rounded-2xl shadow-soft px-4 py-3">
         <div className="flex justify-around text-center">
           <div>
             <div className="text-lg font-bold text-honey-600">

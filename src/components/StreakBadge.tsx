@@ -1,5 +1,6 @@
 'use client';
 
+import { Flame, Trophy } from 'lucide-react';
 import { StreakState } from '@/lib/types';
 import { getStreakMessage } from '@/lib/streak';
 
@@ -21,7 +22,7 @@ export default function StreakBadge({ streak }: Props) {
   return (
     <div className="px-4 py-3 rounded-2xl bg-gradient-to-r from-honey-50 to-warm-50 text-center shadow-soft">
       <div className="flex items-center justify-center gap-2">
-        <span className="text-2xl">🔥</span>
+        <Flame size={24} className="text-honey-500" />
         <span className="text-2xl font-bold text-honey-600">
           {streak.currentStreak}
         </span>
@@ -32,7 +33,8 @@ export default function StreakBadge({ streak }: Props) {
       <p className="text-sm text-stone-500 mt-1">{message}</p>
       {streak.bestStreak > streak.currentStreak && (
         <p className="text-xs text-stone-400 mt-0.5">
-          Dein Rekord: {streak.bestStreak} Tage 🏆
+          Dein Rekord: {streak.bestStreak} Tage{' '}
+          <Trophy size={12} className="text-honey-400 inline" />
         </p>
       )}
     </div>

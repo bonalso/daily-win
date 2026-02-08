@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { Sun, ChevronLeft, ChevronRight, Heart, Rocket, ClipboardList, Zap } from 'lucide-react';
 import { MorningEntry, DayEntry } from '@/lib/types';
 import { todayString } from '@/lib/utils';
 import { getOrCreateEntry, getSettings } from '@/lib/db';
@@ -106,7 +107,7 @@ export default function MorningPage() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="text-3xl animate-pulse">☀️</div>
+        <Sun size={32} className="text-honey-300 animate-pulse" />
       </div>
     );
   }
@@ -115,16 +116,16 @@ export default function MorningPage() {
     return (
       <div className="min-h-screen flex items-center justify-center px-4">
         <div className="text-center space-y-4">
-          <div className="text-4xl">☀️</div>
+          <Sun size={40} className="text-honey-400 mx-auto" />
           <h2 className="text-lg font-semibold text-stone-800">Morgenroutine</h2>
           <p className="text-sm text-stone-500">
             Die Morgenroutine ist aktuell nicht aktiviert.
           </p>
           <button
             onClick={() => router.push('/einstellungen')}
-            className="text-sm text-honey-600 font-medium hover:text-honey-700"
+            className="inline-flex items-center gap-1 text-sm text-honey-600 font-medium hover:text-honey-700"
           >
-            In den Einstellungen aktivieren →
+            In den Einstellungen aktivieren <ChevronRight size={16} />
           </button>
         </div>
       </div>
@@ -135,7 +136,7 @@ export default function MorningPage() {
     return (
       <div className="min-h-screen flex items-center justify-center px-4">
         <div className="text-center space-y-3 animate-fade-in">
-          <div className="text-5xl">☀️</div>
+          <Sun size={48} className="text-honey-300 mx-auto" />
           <h2 className="text-xl font-semibold text-stone-800">Gespeichert!</h2>
           <p className="text-sm text-stone-500">
             Starte gut in den Tag 💛
@@ -150,9 +151,10 @@ export default function MorningPage() {
       <div className="flex items-center justify-between mb-6">
         <button
           onClick={() => router.back()}
-          className="text-stone-500 hover:text-stone-700 text-sm font-medium transition-all"
+          className="flex items-center gap-1 text-stone-500 hover:text-stone-700 text-sm font-medium transition-all"
         >
-          ← Zurück
+          <ChevronLeft size={18} />
+          Zurück
         </button>
         <h1 className="text-lg font-bold text-stone-800">Morgen-Check-in</h1>
         <div className="w-16"></div>
@@ -163,7 +165,7 @@ export default function MorningPage() {
       </p>
 
       <div className="space-y-6">
-        <FormSection title="Ich bin dankbar für..." emoji="🙏">
+        <FormSection title="Ich bin dankbar für..." icon={<Heart size={18} className="text-stone-400" />}>
           <MultiInput
             values={gratitude}
             onChange={setGratitude}
@@ -179,7 +181,7 @@ export default function MorningPage() {
           </div>
         </FormSection>
 
-        <FormSection title="Heute mache ich Fortschritt durch..." emoji="🚀">
+        <FormSection title="Heute mache ich Fortschritt durch..." icon={<Rocket size={18} className="text-stone-400" />}>
           <input
             type="text"
             value={progress}
@@ -189,7 +191,7 @@ export default function MorningPage() {
           />
         </FormSection>
 
-        <FormSection title="Heute erledige ich..." emoji="📋">
+        <FormSection title="Heute erledige ich..." icon={<ClipboardList size={18} className="text-stone-400" />}>
           <MultiInput
             values={tasks}
             onChange={setTasks}
@@ -198,7 +200,7 @@ export default function MorningPage() {
           />
         </FormSection>
 
-        <FormSection title="Heutige Affirmation" emoji="💪">
+        <FormSection title="Heutige Affirmation" icon={<Zap size={18} className="text-stone-400" />}>
           {!customAffirmation ? (
             <div className="space-y-2">
               <div className="flex flex-wrap gap-2">
@@ -255,7 +257,7 @@ export default function MorningPage() {
           disabled={saving}
           className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-honey-400 to-honey-500 text-white font-semibold shadow-glow hover:shadow-lg hover:scale-[1.01] active:scale-[0.99] transition-all duration-200 disabled:opacity-50"
         >
-          {saving ? 'Speichern...' : 'Morgen-Check-in abschließen ☀️'}
+          {saving ? 'Speichern...' : <span className="inline-flex items-center gap-2">Morgen-Check-in abschließen <Sun size={18} /></span>}
         </button>
         <p className="text-xs text-stone-400 text-center">
           Auch leer absenden zählt — du warst da.
@@ -267,17 +269,17 @@ export default function MorningPage() {
 
 function FormSection({
   title,
-  emoji,
+  icon,
   children,
 }: {
   title: string;
-  emoji: string;
+  icon: React.ReactNode;
   children: React.ReactNode;
 }) {
   return (
-    <div className="bg-white rounded-2xl border border-stone-100 shadow-soft px-4 py-4">
+    <div className="bg-white rounded-2xl shadow-soft px-4 py-4">
       <div className="flex items-center gap-2 mb-3">
-        <span className="text-base">{emoji}</span>
+        {icon}
         <h3 className="text-sm font-semibold text-stone-700">{title}</h3>
       </div>
       {children}

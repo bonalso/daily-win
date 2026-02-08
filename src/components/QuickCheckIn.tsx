@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { Loader2, CircleCheck } from 'lucide-react';
 
 interface Props {
   alreadyCheckedIn: boolean;
@@ -12,7 +13,7 @@ function Toast({ text, show }: { text: string; show: boolean }) {
     <div
       className={[
         'fixed left-1/2 bottom-[calc(72px+env(safe-area-inset-bottom))] -translate-x-1/2 z-50',
-        'px-4 py-2 rounded-2xl shadow-soft border border-stone-100',
+        'px-4 py-2 rounded-2xl shadow-soft',
         'bg-white/90 backdrop-blur text-sm text-stone-700',
         'transition-all duration-200',
         show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none',
@@ -76,13 +77,17 @@ export default function QuickCheckIn({ alreadyCheckedIn, onCheckIn }: Props) {
       >
         {loading ? (
           <span className="inline-flex items-center gap-2">
-            <span className="animate-spin text-sm">⏳</span>
+            <Loader2 size={16} className="animate-spin" />
             Moment...
           </span>
         ) : done ? (
-          'Du warst heute da — schön! ✅'
+          <span className="inline-flex items-center gap-2">
+            Du warst heute da — schön! <CircleCheck size={18} />
+          </span>
         ) : (
-          'Heute war ich kurz da ✅'
+          <span className="inline-flex items-center gap-2">
+            Heute war ich kurz da <CircleCheck size={18} />
+          </span>
         )}
       </button>
     </>
